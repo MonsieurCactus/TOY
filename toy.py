@@ -12,7 +12,7 @@ def fromHex( s ):
 def show( a) :
         
     b = ' '.join([toHex(i) for i in a])
-    c = '\n'.join(b[pos:pos+8] for pos in xrange(0, len(s), 8))
+    c = '\n'.join(b[pos:pos+8] for pos in xrange(0, len(b), 8))
     print c
         
 
@@ -32,7 +32,7 @@ def dump(pc, R, mem):
 # the TOY simulator
 
 pc  = 0x10                      # program counter
-R   = 0                         # 16 registers
+R   = [0 for x in range(16) ]                     # 16 registers
 mem = [0 for x in range(256)]   # 256 main memory locations
 
 """
@@ -45,10 +45,8 @@ mem = [0 for x in range(256)]   # 256 main memory locations
 """
 
 # read the TOY program directly from the file
-#filename = input()
 
-
-f        = file("toy.toy")
+f        = file(input())
 #spaces + hexadecimal opcode : spaces/tabs hexadecimal code
 regexp  = r"^\s*([0-9A-Fa-f]{2}):[ \t]*([0-9A-Fa-f]{4}).*"
 pattern = re.compile(regexp)
@@ -146,7 +144,7 @@ while True:
         pc = addr                
         
     break
-
+    
 # stdout
 if ((addr == 255 and op == 9) or (R[t] == 255 and op == 11)):
     print toHex(mem[255])
