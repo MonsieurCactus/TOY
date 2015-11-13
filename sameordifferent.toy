@@ -1,0 +1,23 @@
+program SameOrDifferent
+// Input:    two numbers from StdIn
+// Output:   two numbers to StdOut
+// Remarks:  are the two outputs the same or different
+// -----------------------------------------------------------------------------
+
+10: 8AFF   read R[A]                     RA = first input
+11: 8BFF   read R[B]                     RB = second input
+12: 7C01   R[C] <- 0001                  RC = constant 1
+
+// first output (R1)
+13: 51AB   R[1] <- R[A] << R[B]          R1 = RA << RB
+
+// second output (R2)
+14: 12A0   R[2] <- R[A]                  R2 = RA
+15: CB19   if (R[B] == 0) goto 19        while (RB != 0)
+16: 1222   R[2] <- R[2] + R[2]             R2 += R2
+17: 2BBC   R[B] <- R[B] - R[C]             RB--
+18: C015   goto 15                        end while
+
+19: 91FF   write R[1]                    print R1
+1A: 92FF   write R[2]                    print R2
+1B: 0000   halt                          
